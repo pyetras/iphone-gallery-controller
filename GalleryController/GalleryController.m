@@ -23,6 +23,8 @@
 -(CGRect)positionToVisibleRect:(CGPoint)center;
 -(void)resetGalleryScrollViewNavigation;
 -(void)scrollBackToCurrentView;
+
+-(void)matchScrollPositionToPage;
 @end
 
 
@@ -130,7 +132,7 @@
 }
 
 -(void)swipeCancelled{
-	[self scrollBackToCurrentView];
+	//[self scrollBackToCurrentView];
 }
 
 #pragma mark -
@@ -192,9 +194,9 @@
 //
 //}
 //
-//-(void)scrollViewDidScroll:(UIScrollView *)scrollView{
-//	NSLog(@"did scroll");
-//}
+-(void)scrollViewDidScroll:(UIScrollView *)scrollView{
+	[self matchScrollPositionToPage];
+}
 //
 //-(void)scrollViewDidEndDragging:(UIScrollView *)scrollView willDecelerate:(BOOL)decelerate{
 //	NSLog(@"did end dragging");
@@ -208,26 +210,23 @@
 //	NSLog(@"will begin decelerating");
 //}
 
-//-(void)matchScrollPosition:(BOOL)doReturn{
-//	//if (scrollingATM) return;
-//	float pageWidth, contentOffset;
-//	if (navigationMode==GalleryControllerNavigationModeHorizontal){
-//		pageWidth = galleryScrollView.frame.size.width;
-//		contentOffset = galleryScrollView.contentOffset.x;
-//	}else{
-//		pageWidth = galleryScrollView.frame.size.height;
-//		contentOffset = galleryScrollView.contentOffset.y;
-//	}
-//	int page = floor((contentOffset - pageWidth / 2) / pageWidth) + 1;
-//	
-//	//NSLog(@"%d", page);
-//	if (page - currentIndex != 0){
-//		[self activateView:(page - currentIndex)>0 animated:YES];
-//	}else if(doReturn){
-//		//[galleryScrollView scrollRectToVisible:[self positionToVisibleRect:currentPosition] animated:YES];
-//		scrollingATM = YES;	
-//	}
-//}
+-(void)matchScrollPositionToPage{
+	//if (scrollingATM) return;
+	float pageWidth, contentOffset;
+	if (navigationMode==GalleryControllerNavigationModeHorizontal){
+		pageWidth = galleryScrollView.frame.size.width;
+		contentOffset = galleryScrollView.contentOffset.x;
+	}else{
+		pageWidth = galleryScrollView.frame.size.height;
+		contentOffset = galleryScrollView.contentOffset.y;
+	}
+	int page = floor((contentOffset - pageWidth / 2) / pageWidth) + 1;
+	
+	//NSLog(@"%d", page);
+	if (page - currentIndex != 0){
+		[self activateViewNext:(page - currentIndex)>0];
+	}
+}
 
 #pragma mark -
 
@@ -298,9 +297,9 @@
 }
 
 
--(void)activateViewNext:(BOOL)next animated:(BOOL)animated{
+-(void)activateViewNext:(BOOL)next{
 	if ((next && [nextViews count] == 0) || (!next && [previousViews count] == 0)) {
-		[self scrollBackToCurrentView];
+		//[self scrollBackToCurrentView];
 		return;
 	};
 	NSInteger sign = 1;
@@ -309,7 +308,7 @@
 	
 	currentPosition = [self advanceCenter:currentPosition by:sign];
 	
-	CGRect screen = [self positionToVisibleRect:currentPosition];
+	//CGRect screen = [self positionToVisibleRect:currentPosition];
 	
 	//change bounds, free views
 	if (next){
@@ -321,7 +320,7 @@
 		[self addGalleryContentSize];
 	
 	[self willActivateViewNext:next];
-	[galleryScrollView scrollRectToVisible:screen animated:animated];
+	//[galleryScrollView scrollRectToVisible:screen animated:animated];
 }
 
 -(void)scrollBackToCurrentView{

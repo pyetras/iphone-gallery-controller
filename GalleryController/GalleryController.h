@@ -48,7 +48,7 @@ typedef enum {
 
 -(UIView*)viewAtIndex:(NSInteger)index;
 
--(void)activateViewNext:(BOOL)next animated:(BOOL)animated;
+-(void)activateViewNext:(BOOL)next;
 
 -(void)willActivateViewNext:(BOOL)isNext;
 -(void)didActivateViewNext:(BOOL)wasNext;
