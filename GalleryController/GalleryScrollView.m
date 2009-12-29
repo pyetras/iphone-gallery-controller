@@ -25,6 +25,7 @@
 		self.decelerationRate = 0.1;
 
 		self.scrollEnabled = NO;
+		self.pagingEnabled = YES;
 		self.horizontalScrollEnabled = YES;
 		self.verticalScrollEnabled = YES;
 	}
@@ -37,19 +38,19 @@
 	
 	UITouch* touch = [touches anyObject];
 	touchVector = [[TouchVector alloc] initWithPosition:[touch locationInView:[self superview]]];
+
+	NSUInteger half;
+	NSUInteger touchPos;
 	
-//	NSUInteger half;
-//	NSUInteger touchPos;
-//	
-//	half = self.frame.size.height/2;
-//	touchPos = [touch locationInView:[self superview]].y;
-//	if (touchPos > half) [galleryController swipe:SwipeDirectionDown];
-//	else [galleryController swipe:SwipeDirectionUp]; 
-//	
-//	half = self.frame.size.width/2;
-//	touchPos = [touch locationInView:[self superview]].x;
-//	if (touchPos > half) [galleryController swipe:SwipeDirectionRight];
-//	else [galleryController swipe:SwipeDirectionLeft]; 
+	half = self.frame.size.height/2;
+	touchPos = [touch locationInView:[self superview]].y;
+	if (touchPos > half) [galleryController swipe:SwipeDirectionDown];
+	else [galleryController swipe:SwipeDirectionUp]; 
+	
+	half = self.frame.size.width/2;
+	touchPos = [touch locationInView:[self superview]].x;
+	if (touchPos > half) [galleryController swipe:SwipeDirectionRight];
+	else [galleryController swipe:SwipeDirectionLeft]; 
 }
 
 -(void)touchesCancelled:(NSSet *)touches withEvent:(UIEvent *)event{

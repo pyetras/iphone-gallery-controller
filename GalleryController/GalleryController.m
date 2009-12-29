@@ -36,7 +36,7 @@
         self.currentIndex = 0;
 		self.viewsToKeep = 1;
 		self.viewsToPresent = 1;
-
+		
 		[self setNavigationMode:GalleryControllerNavigationModeHorizontal inverted:NO];
     }
     return self;
@@ -102,31 +102,31 @@
 }
 
 -(void)swipe:(SwipeDirection)direction{
-	switch (direction) {
-		case SwipeDirectionLeft:
-			if (navigationMode==GalleryControllerNavigationModeHorizontal)
-				[self activateViewNext:inverted animated:YES];
-			else [self scrollBackToCurrentView];
-			break;
-		case SwipeDirectionRight:
-			if (navigationMode==GalleryControllerNavigationModeHorizontal)
-				[self activateViewNext:!inverted animated:YES];
-			else [self scrollBackToCurrentView];
-			break;
-		case SwipeDirectionUp:
-			if (navigationMode==GalleryControllerNavigationModeVertical)
-				[self activateViewNext:inverted animated:YES];
-			else [self scrollBackToCurrentView];
-			break;
-		case SwipeDirectionDown:
-			if (navigationMode==GalleryControllerNavigationModeVertical)
-				[self activateViewNext:!inverted animated:YES];
-			else [self scrollBackToCurrentView];
-			break;
-		default:
-			[self scrollBackToCurrentView];
-			break;
-	}
+//	switch (direction) {
+//		case SwipeDirectionLeft:
+//			if (navigationMode==GalleryControllerNavigationModeHorizontal)
+//				[self activateViewNext:inverted animated:YES];
+//			else [self scrollBackToCurrentView];
+//			break;
+//		case SwipeDirectionRight:
+//			if (navigationMode==GalleryControllerNavigationModeHorizontal)
+//				[self activateViewNext:!inverted animated:YES];
+//			else [self scrollBackToCurrentView];
+//			break;
+//		case SwipeDirectionUp:
+//			if (navigationMode==GalleryControllerNavigationModeVertical)
+//				[self activateViewNext:inverted animated:YES];
+//			else [self scrollBackToCurrentView];
+//			break;
+//		case SwipeDirectionDown:
+//			if (navigationMode==GalleryControllerNavigationModeVertical)
+//				[self activateViewNext:!inverted animated:YES];
+//			else [self scrollBackToCurrentView];
+//			break;
+//		default:
+//			[self scrollBackToCurrentView];
+//			break;
+//	}
 }
 
 -(void)swipeCancelled{
@@ -238,7 +238,7 @@
 		return;
 	
 	self.view.frame = 
-	galleryScrollView.frame = CGRectMake(0, 0, currentView.frame.size.width, currentView.frame.size.height);
+	galleryScrollView.frame = galleryScrollView.bounds = CGRectMake(0, 0, currentView.frame.size.width, currentView.frame.size.height);
 	
 	NSUInteger capacity = [previousViews count] + [nextViews count];
 	
