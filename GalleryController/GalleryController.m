@@ -21,7 +21,6 @@
 -(void)trimViewArray:(NSMutableArray **)viewArray;
 -(void)switchViewFrom:(NSMutableArray **)fromArray to:(NSMutableArray **)toArray back:(BOOL)back;
 -(CGRect)positionToVisibleRect:(CGPoint)center;
--(void)resetGalleryScrollViewNavigation;
 -(void)scrollBackToCurrentView;
 
 -(void)matchScrollPositionToPage;
@@ -54,15 +53,8 @@
 	galleryScrollView = [[GalleryScrollView alloc] init];
 	
 	galleryScrollView.delegate = self;
-	galleryScrollView.galleryController = self;
-	
-	[self resetGalleryScrollViewNavigation];
-	galleryScrollView.autoresizesSubviews = YES;
-	
+	galleryScrollView.galleryController = self;	
 	[self.view addSubview:galleryScrollView];
-	
-//	[self.view setBackgroundColor:[UIColor blueColor]];
-//	[galleryScrollView setBackgroundColor:[UIColor greenColor]];
 }
 
 
@@ -87,54 +79,6 @@
     return (interfaceOrientation == UIInterfaceOrientationPortrait);
 }
 */
-#pragma mark -
-
-#pragma mark Touch
-
--(void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event{
-
-}
-
--(void)touchesMoved:(NSSet *)touches withEvent:(UIEvent *)event{
-
-}
-
--(void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event{
-	
-}
-
--(void)swipe:(SwipeDirection)direction{
-//	switch (direction) {
-//		case SwipeDirectionLeft:
-//			if (navigationMode==GalleryControllerNavigationModeHorizontal)
-//				[self activateViewNext:inverted animated:YES];
-//			else [self scrollBackToCurrentView];
-//			break;
-//		case SwipeDirectionRight:
-//			if (navigationMode==GalleryControllerNavigationModeHorizontal)
-//				[self activateViewNext:!inverted animated:YES];
-//			else [self scrollBackToCurrentView];
-//			break;
-//		case SwipeDirectionUp:
-//			if (navigationMode==GalleryControllerNavigationModeVertical)
-//				[self activateViewNext:inverted animated:YES];
-//			else [self scrollBackToCurrentView];
-//			break;
-//		case SwipeDirectionDown:
-//			if (navigationMode==GalleryControllerNavigationModeVertical)
-//				[self activateViewNext:!inverted animated:YES];
-//			else [self scrollBackToCurrentView];
-//			break;
-//		default:
-//			[self scrollBackToCurrentView];
-//			break;
-//	}
-}
-
--(void)swipeCancelled{
-	//[self scrollBackToCurrentView];
-}
-
 #pragma mark -
 
 #pragma mark GalleryController Views Memory Management
@@ -307,9 +251,7 @@
 		sign = -1;
 	
 	currentPosition = [self advanceCenter:currentPosition by:sign];
-	
-	//CGRect screen = [self positionToVisibleRect:currentPosition];
-	
+		
 	//change bounds, free views
 	if (next){
 		[self switchViewFrom:&nextViews to:&previousViews back:NO];	
@@ -320,7 +262,6 @@
 		[self addGalleryContentSize];
 	
 	[self willActivateViewNext:next];
-	//[galleryScrollView scrollRectToVisible:screen animated:animated];
 }
 
 -(void)scrollBackToCurrentView{
@@ -336,16 +277,7 @@
 	if (navMode!=GalleryControllerNavigationModeOther && galleryScrollView) {		
 		[self resetViewDimensions];
 		[self drawViews];
-		[self resetGalleryScrollViewNavigation];
 	}
-}
-
--(void)resetGalleryScrollViewNavigation{
-	if (navigationMode == GalleryControllerNavigationModeHorizontal){
-		galleryScrollView.verticalScrollEnabled = NO;
-	}else if (navigationMode == GalleryControllerNavigationModeVertical) {
-		galleryScrollView.horizontalScrollEnabled = NO;
-	}		
 }
 
 #pragma mark -
@@ -361,6 +293,20 @@
 -(void)willActivateViewNext:(BOOL)isNext{
 	return;
 }
+
+-(void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event{
+	
+}
+
+-(void)touchesMoved:(NSSet *)touches withEvent:(UIEvent *)event{
+	
+}
+
+-(void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event{
+	
+}
+
+
 #pragma mark -
 
 #pragma mark Memory Management

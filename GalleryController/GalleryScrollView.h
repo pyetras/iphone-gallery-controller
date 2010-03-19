@@ -7,7 +7,6 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "TouchVector.h"
 #import <UIKit/UIKit.h>
 #import <CoreGraphics/CoreGraphics.h>
 
@@ -15,7 +14,6 @@
 
 @interface GalleryScrollView : UIScrollView {
 	GalleryController* galleryController;
-	TouchVector* touchVector;
 	BOOL horizontalScrollEnabled;
 	BOOL verticalScrollEnabled;
 }

@@ -7,21 +7,13 @@
 //
 
 #import <UIKit/UIKit.h>
-#import <CoreGraphics/CoreGraphics.h>
 #import "GalleryScrollView.h"
+#import <CoreGraphics/CoreGraphics.h>
 typedef enum {
 	GalleryControllerNavigationModeOther,
 	GalleryControllerNavigationModeHorizontal,
 	GalleryControllerNavigationModeVertical
 } GalleryControllerNavigationMode;
-
-typedef enum {
-	SwipeDirectionUnknown,
-	SwipeDirectionUp,
-	SwipeDirectionDown,
-	SwipeDirectionLeft,
-	SwipeDirectionRight,
-} SwipeDirection;
 
 @interface GalleryController : UIViewController <UIScrollViewDelegate> {
 	GalleryControllerNavigationMode navigationMode;
@@ -52,9 +44,6 @@ typedef enum {
 
 -(void)willActivateViewNext:(BOOL)isNext;
 -(void)didActivateViewNext:(BOOL)wasNext;
-
--(void)swipe:(SwipeDirection)direction;
--(void)swipeCancelled;
 
 -(void)setNavigationMode:(GalleryControllerNavigationMode)navMode inverted:(BOOL)isInverted;
 
